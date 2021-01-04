@@ -16,4 +16,4 @@ archives:
         format: zip
 release:
   draft: true
-  prerelease: auto
+  prerelease: true
