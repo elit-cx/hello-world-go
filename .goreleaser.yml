@@ -1,8 +1,8 @@
-project_name: kics
+project_name: test
 
 builds:
-  - main: ./cmd/console/main.go
-    binary: kics
+  - main: main.go
+    binary: test
     goos:
       - linux
       - windows 
@@ -10,12 +10,7 @@ builds:
       - amd64
 archives:
   -
-    builds: [kics]
+    builds: [test]
     format_overrides:
       - goos: windows
         format: zip
-    replacements:
-      amd64: x64
-      386: x32
-    files:
-      - assets/queries
