@@ -17,21 +17,24 @@ jobs:
           fetch-depth: 0
       - name: 'Get Previous tag'
         id: previoustag
-        uses: "WyriHaximus/github-action-get-previous-tag@master"
+        run: |
+          latesttag=$(git describe --tags `git rev-list --tags --max-count=1`)
+          echo $latesttag
+          echo "latesttag=$latesttag" >> $GITHUB_ENV
       - name: 'Get next minor version'
         id: semvers
         uses: "WyriHaximus/github-action-next-semvers@master"
         with:
-          version: ${{ steps.previoustag.outputs.tag }}  
+          version: ${{ latesttag }}  
       - uses: "marvinpinto/action-automatic-releases@latest"
-        if:  contains(steps.previoustag.outputs.tag, '-rc')
+        if:  contains(latesttag, '-rc')
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "${{ steps.previoustag.outputs.tag }}"
+          automatic_release_tag: "${{ latesttag }}"
           prerelease: true
           title: "Pre release ${{ steps.previoustag.outputs.tag }}"
       - uses: "marvinpinto/action-automatic-releases@latest"
-        if:  "!contains(steps.previoustag.outputs.tag, '-rc')"
+        if:  "!contains(latesttag, '-rc')"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "${{ steps.semvers.outputs.v_minor }}-rc"
