@@ -14,5 +14,5 @@ archives:
     format_overrides:
       - goos: windows
         format: zip
- release:
+release:
   prerelease: auto
