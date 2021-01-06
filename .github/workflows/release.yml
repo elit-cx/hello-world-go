@@ -6,17 +6,17 @@ on:
       - 'master'
 
 jobs:
-  pre-release:
-    name: "Pre Release"
-    runs-on: "ubuntu-latest"
+  #pre-release:
+  #  name: "Pre Release"
+  #  runs-on: "ubuntu-latest"
 
-    steps:
-      - uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "latest"
-          prerelease: true
-          title: "Pre release"
+  # steps:
+  #    - uses: "marvinpinto/action-automatic-releases@latest"
+  #      with:
+  #        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+  #        automatic_release_tag: "latest"
+  #        prerelease: true
+  #        title: "Pre release"
 
   goreleaser:
     runs-on: ubuntu-latest
