@@ -29,14 +29,18 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "${{ steps.previoustag.outputs.tag }}"
           prerelease: true
-          title: "Pre release"
+          title: "Pre release ${{ steps.previoustag.outputs.tag }}"
       - uses: "marvinpinto/action-automatic-releases@latest"
         if:  "!contains(steps.previoustag.outputs.tag, '-rc')"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "${{ steps.semvers.outputs.v_minor }}-rc"
           prerelease: true
-          title: "Pre release"  
+          title: "Pre release ${{ steps.semvers.outputs.v_minor }}-rc"  
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  
       -
         name: Set up Go
         uses: actions/setup-go@v2
