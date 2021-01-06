@@ -6,17 +6,29 @@ on:
       - 'master'
 
 jobs:
-  #pre-release:
-  #  name: "Pre Release"
-  #  runs-on: "ubuntu-latest"
+  pre-release:
+    name: "Pre Release"
+    runs-on: "ubuntu-latest"
 
-  # steps:
-  #    - uses: "marvinpinto/action-automatic-releases@latest"
-  #      with:
-  #        repo_token: "${{ secrets.GITHUB_TOKEN }}"
-  #        automatic_release_tag: "latest"
-  #        prerelease: true
-  #        title: "Pre release"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: 'Get Previous tag'
+        id: previoustag
+        uses: "WyriHaximus/github-action-get-previous-tag@master"
+      - name: 'Get next minor version'
+        id: semvers
+        uses: "WyriHaximus/github-action-next-semvers@master"
+        with:
+          version: ${{ steps.previoustag.outputs.tag }}  
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "${{ steps.semvers.outputs.v_minor }}-rc"
+          prerelease: true
+          title: "Pre release"
 
   goreleaser:
     runs-on: ubuntu-latest
