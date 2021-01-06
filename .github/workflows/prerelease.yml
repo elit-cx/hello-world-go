@@ -16,25 +16,25 @@ jobs:
         with:
           fetch-depth: 0
       - name: 'Get Previous tag'
-        id: previoustag
-        run: |
-          latesttag=$(git describe --tags `git rev-list --tags --max-count=1`)
-          echo $latesttag
-          echo "latesttag=$latesttag" >> $GITHUB_ENV
+      - uses: oprypin/find-latest-tag@v1
+        with:
+          repository: Checkmarx/kics 
+          releases-only: true  
+        id: previoustag 
       - name: 'Get next minor version'
         id: semvers
         uses: "WyriHaximus/github-action-next-semvers@master"
         with:
-          version: ${{ latesttag }}  
+          version: ${{ steps.previoustag.outputs.tag }}  
       - uses: "marvinpinto/action-automatic-releases@latest"
-        if:  contains(latesttag, '-rc')
+        if:  contains(steps.previoustag.outputs.tag, '-rc')
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "${{ latesttag }}"
+          automatic_release_tag: "${{ steps.previoustag.outputs.tag }}"
           prerelease: true
           title: "Pre release ${{ steps.previoustag.outputs.tag }}"
       - uses: "marvinpinto/action-automatic-releases@latest"
-        if:  "!contains(latesttag, '-rc')"
+        if:  "!contains(steps.previoustag.outputs.tag, '-rc')"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "${{ steps.semvers.outputs.v_minor }}-rc"
@@ -57,5 +57,3 @@ jobs:
           args: release --rm-dist
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  
-
-      
