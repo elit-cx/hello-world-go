@@ -31,7 +31,7 @@ jobs:
           prerelease: true
           title: "Pre release"
       - uses: "marvinpinto/action-automatic-releases@latest"
-        if:  (contains(steps.previoustag.outputs.tag, '-rc') != true
+        if:  (contains(steps.previoustag.outputs.tag, '-rc') != 'true'
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "${{ steps.previoustag.outputs.tag }}-rc"
