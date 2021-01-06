@@ -1,8 +1,12 @@
 package main
 
-import "fmt"
+import (
+    "fmt"
+    "time"
+)
 
 func helloworld() string {
+	time.Sleep(10 * time.Second)
 	return "Hello World!!"
 }
 
