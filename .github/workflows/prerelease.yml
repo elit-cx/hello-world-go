@@ -16,7 +16,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: 'Get Previous tag'
-      - uses: oprypin/find-latest-tag@v1
+        uses: oprypin/find-latest-tag@v1
         with:
           repository: Checkmarx/kics 
           releases-only: true  
