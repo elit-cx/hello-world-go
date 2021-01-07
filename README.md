@@ -7,7 +7,7 @@ Hello World for Golang
 Run golang program
 
 ```bash
-go run main.go   
+go run main.go      
 ```
 
 Testing
