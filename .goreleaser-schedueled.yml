@@ -19,4 +19,4 @@ release:
   github:
   draft: true
 snapshot:
-  name_template: "{{ .Tag }}-next"
+  name_template: "nightly-release"
