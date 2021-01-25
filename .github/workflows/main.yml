@@ -47,8 +47,8 @@ jobs:
       - name: dislay assets
         run: |
           ls -l /home/runner/work/hello-world-go/hello-world-go/dist
-      - name: Upload Release Asset
-        id: upload-release-asset linux
+      - name: Upload Release Asset linux
+        id: upload-release-asset-linux
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -57,8 +57,8 @@ jobs:
           asset_path: /home/runner/work/hello-world-go/hello-world-go/dist/test_nightly-release_linux_amd64.tar.gz
           asset_name: test_nightly-release_linux_amd64.tar.gz
           asset_content_type: application/gzip
-      - name: Upload Release Asset
-        id: upload-release-asset windows
+      - name: Upload Release Asset windows
+        id: upload-release-asset-windows
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -67,8 +67,8 @@ jobs:
           asset_path: /home/runner/work/hello-world-go/hello-world-go/dist/test_nightly-release_windows_amd64.zip
           asset_name: test_nightly-release_windows_amd64.zip
           asset_content_type: application/zip
-      - name: Upload Release Asset
-        id: upload-release-asset checksums
+      - name: Upload Release Asset checksum
+        id: upload-release-asset-checksums
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
