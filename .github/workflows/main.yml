@@ -48,12 +48,22 @@ jobs:
         run: |
           ls -l /home/runner/work/hello-world-go/hello-world-go/dist
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset 1
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: /home/runner/work/hello-world-go/hello-world-go/dist/test_nightly-release_linux_amd64.tar.gz
+          asset_name: test_nightly-release_linux_amd64.tar.gz
+          asset_content_type: application/gzip
+      - name: Upload Release Asset
+        id: upload-release-asset 2
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
           asset_path: /home/runner/work/hello-world-go/hello-world-go/dist/test_nightly-release_windows_amd64.zip
-          asset_name: /home/runner/work/hello-world-go/hello-world-go/dist/test_nightly-release_linux_amd64.tar.gz
-          asset_content_type: application/zip
+          asset_name: test_nightly-release_windows_amd64.zip
+          asset_content_type: application/zip  
