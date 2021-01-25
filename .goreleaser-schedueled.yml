@@ -16,5 +16,7 @@ archives:
         format: zip
 release:
   prerelease: true
+  github:
+  draft: true
 snapshot:
   name_template: "{{ .Tag }}-next"
