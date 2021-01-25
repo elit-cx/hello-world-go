@@ -1,0 +1,20 @@
+project_name: test
+
+builds:
+  - main: main.go
+    binary: test
+    goos:
+      - linux
+      - windows 
+    goarch:
+      - amd64
+archives:
+  -
+    builds: [test]
+    format_overrides:
+      - goos: windows
+        format: zip
+release:
+  prerelease: true
+snapshot:
+  name_template: "{{ .Tag }}-next"
