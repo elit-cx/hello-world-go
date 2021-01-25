@@ -1,8 +1,8 @@
 name: goreleaser scheduled
 
 on:
-  schedules:
-  - cron: '*/5 * * * *'
+  schedule:
+  - cron: '*/10 * * * *'
 
 jobs:
   goreleaser:
