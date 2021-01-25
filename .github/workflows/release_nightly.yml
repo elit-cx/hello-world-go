@@ -2,7 +2,7 @@ name: goreleaser
 
 on:
   schedule:
-    - cron: '*/5 * * * *' 
+    - cron: "*/5 * * * *"
 
 jobs:
   goreleaser:
