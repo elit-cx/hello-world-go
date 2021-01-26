@@ -31,7 +31,7 @@ jobs:
         uses: goreleaser/goreleaser-action@v2
         with:
           version: latest
-          args: release --rm-dist --config="./.goreleaser-schedueled.yml"
+          args: release --rm-dist --snapshot ----skip-validate --config="./.goreleaser-schedueled.yml"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Release
