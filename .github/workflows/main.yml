@@ -33,12 +33,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create Release
-        uses: ncipollo/release-action@v1.8.3
+        id: create_release
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag: nightly 
-          name: nightly-${{ github.sha }}
+          tag_name: nightly
+          release_name: nightly-${{ needs.pre_release_job.outputs.sha8 }}
+          draft: false
           prerelease: true
       - name: dislay assets
         run: |
